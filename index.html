@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MHIntegration Launcher</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .command-preview {
+            margin: 25px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13px;
+            word-break: break-all;
+            color: #333;
+        }
+        
+        .command-preview strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        .btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .info-box {
+            margin-top: 25px;
+            padding: 15px;
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .info-box strong {
+            color: #1976D2;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .info-box ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+        }
+
+        .param-hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .success-msg {
+            margin-top: 15px;
+            padding: 12px;
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            border-radius: 8px;
+            color: #155724;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 MHIntegration Launcher</h1>
+        <div class="subtitle">Launch from Web Browser</div>
+        
+        <form id="launchForm" onsubmit="return false;">
+            <div class="form-group">
+                <label for="param1">Parameter 1:</label>
+                <input type="text" id="param1" value="713073" placeholder="Enter first parameter">
+                <div class="param-hint">Example: 713073</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="param2">Parameter 2:</label>
+                <input type="text" id="param2" value="CSB" placeholder="Enter second parameter">
+                <div class="param-hint">Example: CSB</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="param3">Parameter 3:</label>
+                <input type="text" id="param3" value="1" placeholder="Enter third parameter">
+                <div class="param-hint">Example: 1</div>
+            </div>
+
+            <div class="command-preview">
+                <strong>Command Preview:</strong>
+                <span id="commandPreview">MHIntegration.exe 713073 CSB 1</span>
+            </div>
+
+            <button type="button" class="btn" onclick="launchMHIntegration()">
+                ▶ Launch MHIntegration
+            </button>
+
+            <div id="successMsg" class="success-msg">
+                ✅ Launch command sent! Check if MHIntegration opened.
+            </div>
+        </form>
+
+        <div class="info-box">
+            <strong>📋 First Time Setup:</strong>
+            <ol>
+                <li>Copy <code>mhintegration-launcher.bat</code> to <code>D:\MHIntegration\</code></li>
+                <li>Run <code>REGISTER-PROTOCOL.reg</code> (double-click and click Yes)</li>
+                <li>Refresh this page</li>
+                <li>Click "Launch MHIntegration" button above</li>
+            </ol>
+            <strong style="margin-top: 10px;">🔍 Troubleshooting:</strong><br>
+            If nothing happens, check <code>D:\MHIntegration\launcher-log.txt</code> for errors.
+        </div>
+    </div>
+    
+    <script>
+        // Update command preview in real-time
+        function updatePreview() {
+            const param1 = document.getElementById('param1').value || '';
+            const param2 = document.getElementById('param2').value || '';
+            const param3 = document.getElementById('param3').value || '';
+            
+            const params = [param1, param2, param3]
+                .filter(p => p.trim() !== '')
+                .join(' ');
+            
+            document.getElementById('commandPreview').textContent = 
+                `MHIntegration.exe ${params}`;
+        }
+
+        // Launch MHIntegration
+        function launchMHIntegration() {
+            const param1 = document.getElementById('param1').value.trim();
+            const param2 = document.getElementById('param2').value.trim();
+            const param3 = document.getElementById('param3').value.trim();
+            
+            const params = [param1, param2, param3]
+                .filter(p => p !== '')
+                .join(' ');
+            
+            if (!params) {
+                alert('⚠️ Please enter at least one parameter.');
+                return;
+            }
+            
+            // Encode parameters for URL
+            const encodedParams = encodeURIComponent(params);
+            const protocolUrl = `mhintegration://${encodedParams}`;
+            
+            console.log('Launching:', protocolUrl);
+            
+            // Launch via custom protocol
+            window.location.href = protocolUrl;
+            
+            // Show success message
+            const successMsg = document.getElementById('successMsg');
+            successMsg.style.display = 'block';
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        }
+
+        // Add event listeners
+        document.getElementById('param1').addEventListener('input', updatePreview);
+        document.getElementById('param2').addEventListener('input', updatePreview);
+        document.getElementById('param3').addEventListener('input', updatePreview);
+
+        // Allow Enter key to launch
+        document.getElementById('launchForm').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                launchMHIntegration();
+            }
+        });
+
+        // Initialize preview
+        updatePreview();
+    </script>
+</body>
+</html>
